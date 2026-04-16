@@ -1,0 +1,71 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Хост: 127.0.0.1
+-- Время создания: Апр 16 2026 г., 13:51
+-- Версия сервера: 10.4.32-MariaDB
+-- Версия PHP: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- База данных: `users`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `is_verified` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `token`, `is_verified`, `created_at`) VALUES
+(2, 'zinovievmd', 'tset@y.aru', '$2y$10$hzbXgYrS66wkg3oU8XhM8u9wz4oNGH/.euA0xOwbCRYn8XfO7q1la', '7de5a3c25e962e5b3abc6727a462fbfecd75862bfd6995e2d1414099081b98de', 0, '2026-04-16 18:44:23');
+
+--
+-- Индексы сохранённых таблиц
+--
+
+--
+-- Индексы таблицы `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
