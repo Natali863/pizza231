@@ -76,4 +76,45 @@ class UserDBStorage extends DBStorage implements ISaveStorage
         
         return true;
     }
+
+    public function getUserData($user_id) {
+        $stmt = $this->connection->prepare(
+            "SELECT username, email FROM users WHERE id=?"
+        );
+        $stmt->execute([$user_id]);
+        return $stmt->fetch();
+    }
+
+    public function updateProfile($data):bool {
+        global $user_id;
+        try {
+            $update = $this->connection->prepare(
+                "UPDATE users SET address= ?, phone= ?, username= ?
+                WHERE id = ?");
+
+            $update->execute([
+                $data['address'],
+                $data['phone'],
+                $data['username'],
+                $user_id
+            ]);
+        } catch (\Exception $e) {
+            return false;
+        }
+        return true;
+    }
+
+    public function getDataHistory(int $idUser): ?array 
+    {
+        $stmt = $this->connection->prepare(
+            "SELECT id, created, all_sum
+            FROM orders WHERE user_id = :userId ");
+        $stmt->execute(["userId" => $idUser]);
+
+        if ($stmt->rowCount() > 0) {
+            $orders = $stmt->fetchAll();
+            return $orders;
+        }
+        return null;
+    }
 }
